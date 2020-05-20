@@ -19,30 +19,23 @@ module.exports = {
     },
 
     update: (req, res) => {
-        let { text } = req.body
-        let { message_id } = req.params
+        const { text } = req.body;
+        const updateID = req.params.id;
+        const messageIndex = messages.findIndex(message => message.id == updateID);
+        let message = messages[messageIndex];
 
-        let index = messages.findIndex((element) => element.id === +message_id)
-
-        if (index === -1) {
-            return res.status(404).send('Message not found')
-        }
-
-        let updatedMessage = {
+        messages[messageIndex] = {
             id: message.id,
             text: text || message.text,
             time: message.time
-        }
-
-        messages[index] = updatedMessage
-
-        res.status(200).send(messages)
+        };
+        res.status(200).send(messages);
     },
 
     delete: (req, res) => {
-        let { message_id } = req.params
+        let messageId = req.params.id
 
-        let index = messages.findIndex((element) => element.id === +message_id)
+        let index = messages.findIndex((element) => element.id == messageId)
 
         if (index === -1) {
             return res.status(404).send('Message not found')
