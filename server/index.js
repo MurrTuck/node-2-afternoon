@@ -4,7 +4,7 @@ let ctrl = require('./controllers/messages_controller')
 let SERVER_PORT = 3001
 
 app.use(express.json())
-// app.use(express.static( + '/../public/build))
+app.use(express.static(__dirname + '/../public/build'))
 
 app.post('/api/messages', ctrl.create)
 app.get('/api/messages', ctrl.read)
